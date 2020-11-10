@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--  mybtis配置-->
+<configuration>
+    <properties resource="db.properties"></properties>
+    
+    <typeAliases>
+        <package name="com.qf.pojo"/>
+    </typeAliases>
+    <!-- 当前选中得环境-->
+    <environments default="development">
+        <!-- 当前环境得数据库配置-->
+        <environment id="development">
+            <!-- 事务管理-->
+            <transactionManager type="JDBC"/>
+            <!-- 数据源配置-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <!-- &得转义&amp-->
+                <property name="url" value="${url}"/>
+                <property name="username" value="${name}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>
