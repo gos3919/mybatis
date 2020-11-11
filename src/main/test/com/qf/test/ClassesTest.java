@@ -24,9 +24,14 @@ public class ClassesTest {
         }
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
         ClassesDao mapper = sqlSession.getMapper(ClassesDao.class);
-        List<Classes> all = mapper.findAll(1);
-        System.out.println(all);
+//        List<Classes> all = mapper.findAll(1);
+//        List<Classes> classes = mapper.selectAll();
+        Classes classes = new Classes();
+        classes.setClassesName("2");
+        classes.setId(5);
+        int i = mapper.updateClasses(classes);
+        System.out.println(i);
     }
 }

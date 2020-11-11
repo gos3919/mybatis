@@ -14,8 +14,37 @@
         </collection>
     </resultMap>
 
+
     <select id="findAll" resultMap="BaseResult">
         select tc.*,td.id as classid,td.classes_detail_name,td.classes_id from tr_classes tc ,tr_classes_detail td where tc.id=td.classes_id and tc.id=#{arg0}
     </select>
+    <select id="selectAll" resultMap="BaseResult">
+        SELECT
+          tc.id,
+          tc.classes_name,
+          td.classes_id,
+          td.classes_detail_name,
+        td.id classid
+        FROM
+          tr_classes tc,
+          tr_classes_inner ti,
+          tr_classes_detail td
+        WHERE tc.id = ti.c_classes_id
+          AND td.id = ti.c_classes_detail_id
+    </select>
+    <insert id="insertById" parameterType="classes" >
+        insert into tr_classes(classes_name) values(#{classesName})
+    </insert>
+    <update id="updateClasses" parameterType="classes">
+        update tr_classes
+        <set>
+            <if test="classesName!=null">
+                classes_name=#{classesName}
+            </if>
+            <where>
+                id=#{id}
+            </where>
+        </set>
+    </update>
 
 </mapper>
