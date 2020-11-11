@@ -15,6 +15,7 @@ import java.io.IOException;
 public class UserFindById extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
         String id = req.getParameter("id");
         UserDao userDao = Tools.getUserDao();
         User user = userDao.findById(Integer.parseInt(id));
