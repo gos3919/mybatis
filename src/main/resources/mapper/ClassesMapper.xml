@@ -13,8 +13,20 @@
         </collection>
     </resultMap>
 
+
     <select id="findAll" resultMap="BaseResult">
-        select tc.*,td.id as classid,td.classes_detail_name,td.classes_id from tr_classes tc ,tr_classes_detail td where tc.id=td.classes_id and tc.id=#{arg0}
+        select
+             tc.*,
+             td.id as classid,
+             td.classes_detail_name,
+             td.classes_id
+        from
+           tr_classes tc ,
+           tr_classes_detail td
+        where
+           tc.id=td.classes_id
+        and
+           tc.id=#{arg0}
     </select>
     <select id="selectAll" resultMap="BaseResult">
         SELECT
@@ -22,7 +34,7 @@
           tc.classes_name,
           td.classes_id,
           td.classes_detail_name,
-        td.id classid
+          td.id classid
         FROM
           tr_classes tc,
           tr_classes_inner ti,
@@ -44,5 +56,22 @@
             </where>
         </set>
     </update>
-
+    <select id="findById" resultMap="BaseResult">
+        SELECT
+        tc.*,
+        td.id AS classid,
+        td.classes_detail_name,
+        td.classes_id
+        FROM
+        tr_classes tc,
+        tr_classes_detail td,
+        tr_classes_inner ti
+        WHERE tc.id = ti.c_classes_id
+        AND td.id = ti.c_classes_detail_id
+        and
+            tc.id IN
+            <foreach collection="list" index="i" open="(" separator="," close=")" item="id">
+                #{id}
+            </foreach>
+    </select>
 </mapper>

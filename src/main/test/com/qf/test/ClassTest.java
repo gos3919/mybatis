@@ -10,33 +10,14 @@ import java.util.ArrayList;
 
 public class ClassTest {
     public static void main(String[] args) throws Exception {
-        Class<Classes> aClass = (Class<Classes>) Class.forName("com.qf.pojo.Classes");
-        Field[] fields = aClass.getFields();
+        Class<Classes> classesClass = Classes.class;
+        Field[] fields = classesClass.getDeclaredFields();
         for (Field field : fields) {
-            System.out.println(field);
+            System.out.println(field+"=====>"+field.getName());
+            field.setAccessible(true);
+            Object o = field.get(classesClass.newInstance());
+            System.out.println(o);
         }
-        Field[] declaredFields = aClass.getDeclaredFields();
-        for (Field declaredField : declaredFields) {
-            System.out.println(declaredField);
-        }
-        Field id = aClass.getDeclaredField("id");
-        Field classesName = aClass.getDeclaredField("classesName");
-        System.out.println(id);
-        System.out.println("===============");
-        Constructor<Classes> constructor = aClass.getConstructor();
-        Classes classes = constructor.newInstance();
-        System.out.println(classes);
-        classesName.setAccessible(true);
-        classesName.set(classes,"ymta");
-        Object o = classesName.get(classes);
-        System.out.println(o);
-//        id.setAccessible(true);
-//        id.set(classes,1);
-//        Object o = id.get(classes);
-//        System.out.println(o);
-        Method method1 = aClass.getMethod("method1",ArrayList.class);
-        ArrayList<String> strings = new ArrayList<>();
-       method1.invoke(classes, strings);
-        System.out.println("=================");
+
     }
 }

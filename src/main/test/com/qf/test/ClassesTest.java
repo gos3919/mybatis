@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClassesTest {
@@ -33,5 +34,24 @@ public class ClassesTest {
         classes.setId(5);
         int i = mapper.updateClasses(classes);
         System.out.println(i);
+    }
+    @Test
+    public void test2(){
+        String resource="mybatis-config.xml";
+        InputStream inputStream = null;
+        try {
+            inputStream = Resources.getResourceAsStream(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        ClassesDao mapper = sqlSession.getMapper(ClassesDao.class);
+        ArrayList<Integer> integers = new ArrayList<>();
+        integers.add(1);
+        integers.add(2);
+        integers.add(3);
+        List<Classes> byId = mapper.findById(integers);
+        System.out.println(byId);
     }
 }

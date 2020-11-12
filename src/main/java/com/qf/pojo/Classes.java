@@ -17,4 +17,7 @@ public class Classes {
     public void method1(ArrayList<String> list){
         System.out.println("11111");
     }
+    public void method2(){
+        System.out.println("2222");
+    }
 }

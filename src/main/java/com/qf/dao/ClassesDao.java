@@ -9,4 +9,5 @@ public interface ClassesDao {
     List<Classes> selectAll();
     int insertById(Classes classes);
     int updateClasses(Classes classes);
+    List<Classes> findById(List list);
 }
